@@ -6,13 +6,27 @@ public class TestFunc {
     public static void PrintValuesTable()
     {//create a table instead
         System.out.println("№1");
-        System.out.println("Byte: -128 to 127");
+        System.out.println("-----------------------------------------------------------------------------");
+        System.out.printf("%15s %30s %30s","Type","Min value","Max value" + '\n');
+        System.out.println("-----------------------------------------------------------------------------");
+
+        String t_arr[] = {"Byte","Short","Int","Long","Float","Double","Char"};
+        String min_val_arr[] = {"-128","-32768","-2147483648","-9223372036854775808","1.4E-45","4.9E-324","0"};
+        String max_val_arr[] = {"127","32767","2147483647","9223372036854775807","3.4028235E38","1.7976931348623157E308","65535"};
+
+        for (int i = 0; i < t_arr.length;i++)
+        {
+            System.out.printf("%15s %30s %30s", t_arr[i],min_val_arr[i], max_val_arr[i] + '\n');
+        }
+        System.out.println("-----------------------------------------------------------------------------");
+
+        /* System.out.println("Byte: -128 to 127");
         System.out.println("Short: -32768 to 32767");
         System.out.println("Int: -2147483648 to 2147483647");
         System.out.println("Long: -9223372036854775808 to 9223372036854775807");
         System.out.println("Float: " + 1.4E-45 + " to " + 3.4028235E38);
         System.out.println("Double: 4.9E-324 to 1.7976931348623157E308");
-        System.out.println("Char: 0 to 65535");
+        System.out.println("Char: 0 to 65535");*/
     }
 
     public static void PrintTable()
