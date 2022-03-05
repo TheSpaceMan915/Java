@@ -1,5 +1,6 @@
 package com.lab2;
 import java.util.*;
+//use Ctrl and ? to comment something
 
 public class TestFunc {
 
@@ -122,7 +123,6 @@ public class TestFunc {
             if(j % row == 0 && j != 0)
             {
                 System.out.println(symbol);
-                //System.out.print(i);
             }
             else
             {System.out.print(symbol + " ");}
@@ -188,11 +188,46 @@ public class TestFunc {
         System.out.println("Generally, there are " + general_counter + " symbols");
     }
 
-    public static void SearchForLetters(String str,int position,char symbol)
+    public static int LookForSubstring(String str,String sub_str)
     {
-        System.out.println("The word " + str + "starts with the index " + str.indexOf("you"));
-        System.out.println("After the index " + position + "the word you starts with the index " + str.indexOf("you",position));
-        System.out.println("The index of symbol " + symbol + " is " + str.indexOf(symbol));
+        System.out.println("№9");
+        int sub_counter = 0;
+        int index_start = str.indexOf(sub_str);
+
+        if (index_start != -1)
+        {sub_counter++;}
+        else
+        {return index_start;}  //if there are no substrings return -1
+
+        int temp_ind = 0;
+
+        while (temp_ind != -1)
+        {
+           temp_ind = str.indexOf(sub_str,index_start + 1);
+           sub_counter++;
+           index_start = temp_ind;
+        }
+
+        return sub_counter;
+    }
+
+    public static void PrintString(String str)
+    {
+        System.out.println("№10");
+        for(int i = 0; i < str.length();i++)
+        {
+            for(int k = i; k < str.length();k++)
+            {
+                System.out.print(str.charAt(k));
+            }
+            for(int j = 0; j < i; j++)
+            {
+                System.out.print(str.charAt(j));
+            }
+
+            System.out.println();
+        }
+
     }
 
     public static void main(String[] args) {
@@ -228,9 +263,12 @@ public class TestFunc {
         PrintUnicodeCharacters(0x0400,16,16);
         PrintUnicodeCharacters(0x20a0,2,16);
 
+        FindCharacters("cd4Ⅳ!EⅧ");
 
-        FindCharacters("cd4!E");
+        String main_str = "People think a lot about other people";
+        String substring = "people";
+        System.out.println("There are " + LookForSubstring(main_str,substring) + " substrings in this string: " + main_str);
 
-//      SearchForLetters("where are you");  Ctrl and ?
+        PrintString("Like");
     }
 }
