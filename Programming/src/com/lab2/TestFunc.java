@@ -2,6 +2,8 @@ package com.lab2;
 import java.util.*;
 //use Ctrl and ? to comment something
 
+//check out my pull requests
+
 public class TestFunc {
 
     public static void PrintValuesTable()
