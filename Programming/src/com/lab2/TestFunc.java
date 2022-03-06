@@ -2,7 +2,7 @@ package com.lab2;
 import java.util.*;
 //use Ctrl and ? to comment something
 
-//fixed №9
+//fixed №9 check
 
 public class TestFunc {
 
