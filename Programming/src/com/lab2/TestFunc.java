@@ -2,7 +2,7 @@ package com.lab2;
 import java.util.*;
 //use Ctrl and ? to comment something
 
-//check out my pull requests
+//fixed №9
 
 public class TestFunc {
 
@@ -170,20 +170,21 @@ public class TestFunc {
         System.out.println("№9");
         int sub_counter = 0;
         int index_start = str.indexOf(sub_str);
+        int temp_ind = 0;
 
         if (index_start != -1)
         {sub_counter++;}
         else
-        {return index_start;}  //if there are no substrings return -1
+        {return 0;}  //if there are no substrings return 0
 
-        int temp_ind = 0;
-
-        while (temp_ind != -1)
+        do
         {
-           temp_ind = str.indexOf(sub_str,index_start + 1);
+            temp_ind = str.indexOf(sub_str,index_start + 1);
+            if (temp_ind == -1)
+            {return sub_counter;}
            sub_counter++;
            index_start = temp_ind;
-        }
+        } while (temp_ind <= str.length() - sub_str.length());
 
         return sub_counter;
     }
@@ -243,10 +244,10 @@ public class TestFunc {
 
         FindCharacters("cd4Ⅳ!EⅧ");
 
-        String main_str = "People think a lot about other people";
+        String main_str = "people think people are like other people";
         String substring = "people";
         System.out.println("There are " + LookForSubstring(main_str,substring) + " substrings in this string: " + main_str);
 
-        PrintString("Like");
+        PrintString("Mars");
     }
 }
