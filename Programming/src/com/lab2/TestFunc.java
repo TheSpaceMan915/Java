@@ -2,12 +2,10 @@ package com.lab2;
 import java.util.*;
 //use Ctrl and ? to comment something
 
-//fixed №9 check
-
 public class TestFunc {
 
     public static void PrintValuesTable()
-    {//create a table instead
+    {
         System.out.println("№1");
         System.out.println("-----------------------------------------------------------------------------");
         System.out.printf("%15s %30s %30s","Type","Min value","Max value" + '\n');
@@ -29,59 +27,45 @@ public class TestFunc {
     {
         double res = 1.0;
         int i = 0;
+        double negative_counter = 0.0;
 
         while (i < obj.length)
         {
             if (obj[i] < 0)
-            {res = obj[i] * res;}
+            {
+                res = obj[i] * res;
+                negative_counter++;
+            }
             i++;
         }
 
         if (res < 0)
         {
             res = Math.abs(res);
-            res = Math.pow(res,1.0/(double) obj.length) * -1;
+            res = Math.pow(res,1.0/negative_counter) * -1;
         }
         else
-        {res = Math.pow(res,1.0/(double) obj.length);}
+        {res = Math.pow(res,1.0/(negative_counter));}
 
         return res;
     }
 
-    public static void FindDistance(int x,int y)
+
+    public static void FindDistance(int x, int y, int R_p, int r_p)
     {
         double res = Math.sqrt(Math.pow(x,2) + Math.pow(y,2));
-        double R = 20.5,r = 5.5;
 
-        System.out.println("№3");
-        System.out.println("The distance is " + res + "\tr = " + r + "\tR = " + R);
-        if (res > R)
-        {System.out.println("The object is not found");}
+        System.out.println("The distance is " + res + "\tr = " + r_p + "\tR = " + R_p);
+        if (res > R_p)
+        {System.out.println("The object is not found\n");}
 
-        else if ((res > r) && (res <= R))
-        {System.out.println("The object is found");}
+        else if ((res > r_p) && (res <= R_p))
+        {System.out.println("The object is found\n");}
         else
-        {System.out.println("Attention!");}
-    }
-
-    public static void FindDistance2(int x,int y, int R, int r)
-    {
-
-        double res = Math.sqrt(Math.pow(x,2) + Math.pow(y,2));
-
-        System.out.println("№4");
-        System.out.println("The distance is " + res + "\tr = " + r + "\tR = " + R);
-        if (res > R)
-        {System.out.println("The object is not found");}
-
-        else if ((res > r) && (res <= R))
-        {System.out.println("The object is found");}
-        else
-        {System.out.println("Attention!");}
+        {System.out.println("Attention!\n");}
     }
 
     public static void PrintCommandLine(int number)
-
     {
         System.out.println("№5");
         System.out.println("A command line argument is " + number);
@@ -121,18 +105,14 @@ public class TestFunc {
             char symbol = str.charAt(j);
             int n_symb = (int) symbol;
 
-            if ( (Character.isUpperCase(symbol)) && (Character.isLetter(symbol)))
+            if ((Character.isLetter(symbol)))
             {
-                big_let_counter++;
                 letter_counter++;
                 general_counter++;
-            }
-
-            else if ((Character.isLetter(symbol)) && (Character.isLowerCase(symbol)))
-            {
-                small_let_counter++;
-                letter_counter++;
-                general_counter++;
+                if (Character.isLowerCase(symbol))
+                {small_let_counter++;}
+                else
+                {big_let_counter++;}
             }
 
             else if (Character.isDigit(symbol))
@@ -181,7 +161,7 @@ public class TestFunc {
         {
             temp_ind = str.indexOf(sub_str,index_start + 1);
             if (temp_ind == -1)
-            {return sub_counter;}
+            {break;}
            sub_counter++;
            index_start = temp_ind;
         } while (temp_ind <= str.length() - sub_str.length());
@@ -209,31 +189,37 @@ public class TestFunc {
     }
 
     public static void main(String[] args) {
-       /* System.out.println(args[0]);
-        System.out.println(args[0]);
-        System.out.println(args[0]);*/
 
         PrintValuesTable();
 
-       int[] arr = {-3,2,-2,6,-8,5,7,8,-3,10,1,-1,6,7,9,5,8,3,9,4};
+       int[] arr = {-3,2,-2,86,66,53,69,88,77,28,35,76,21,-1,-2,-2,52,67,89};
        System.out.println("№2");
        System.out.println("For " + Arrays.toString(arr) +" average geometric is " + AverageGeometric(arr));
 
-       FindDistance(3,6);
+       System.out.println("№3");
+       int R = 20,r = 5;
+       FindDistance(3,6,R,r);
 
-       int x_k = Integer.parseInt(args[0]),y_k = Integer.parseInt(args[1]);
-       int r_k = Integer.parseInt(args[2]),R_k= Integer.parseInt(args[3]);
+       System.out.println("№4");
+       final int num_of_input_arguments = 11;
+       if (args.length < num_of_input_arguments)
+       {
+           System.out.println("Please enter " + num_of_input_arguments + " CLI arguments");
+           System.exit(1);
+       }
 
-       int x_k2 = Integer.parseInt(args[4]),y_k2 = Integer.parseInt(args[5]);
-       int r_k2 = Integer.parseInt(args[6]),R_k2 = Integer.parseInt(args[7]);
+        int x_k = Integer.parseInt(args[0]), y_k = Integer.parseInt(args[1]);
+        int r_k = Integer.parseInt(args[2]), R_k = Integer.parseInt(args[3]);
 
-       int x_k3 = Integer.parseInt(args[8]),y_k3 = Integer.parseInt(args[9]);
-       int r_k3 = Integer.parseInt(args[10]),R_k3 = Integer.parseInt(args[11]);
+        int x_k2 = Integer.parseInt(args[4]), y_k2 = Integer.parseInt(args[5]);
+        int r_k2 = Integer.parseInt(args[6]), R_k2 = Integer.parseInt(args[7]);
 
-        FindDistance2(x_k,y_k,R_k,r_k);
-        FindDistance2(x_k2,y_k2,R_k2,r_k2);
-        FindDistance2(x_k3,y_k3,R_k3,r_k3);
+        int x_k3 = Integer.parseInt(args[8]), y_k3 = Integer.parseInt(args[9]);
+        int r_k3 = Integer.parseInt(args[10]), R_k3 = Integer.parseInt(args[11]);
 
+        FindDistance(x_k,y_k,R_k,r_k);
+        FindDistance(x_k2,y_k2,R_k2,r_k2);
+        FindDistance(x_k3,y_k3,R_k3,r_k3);
 
         int com_arg = Integer.parseInt(args[4]);
         PrintCommandLine(com_arg);
