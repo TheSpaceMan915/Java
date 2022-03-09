@@ -2,6 +2,8 @@ package com.lab2;
 import java.util.*;
 //use Ctrl and ? to comment something
 
+//version 1.6
+
 public class TestFunc {
 
     public static void PrintValuesTable()
@@ -11,13 +13,14 @@ public class TestFunc {
         System.out.printf("%15s %30s %30s","Type","Min value","Max value" + '\n');
         System.out.println("-----------------------------------------------------------------------------");
 
-        String t_arr[] = {"Byte","Short","Int","Long","Float","Double","Char"};
-        String min_val_arr[] = {"-128","-32768","-2147483648","-9223372036854775808","1.4E-45","4.9E-324","0"};
-        String max_val_arr[] = {"127","32767","2147483647","9223372036854775807","3.4028235E38","1.7976931348623157E308","65535"};
+        String t_arr[] = {"Byte","Short","Int","Long","Float","Double"};
+        Object min_val_arr[] = {Byte.MIN_VALUE,Short.MIN_VALUE,Integer.MIN_VALUE,Long.MIN_VALUE,Float.MIN_VALUE,Double.MIN_VALUE};
+        Object max_val_arr[] = {Byte.MAX_VALUE,Short.MAX_VALUE,Integer.MAX_VALUE,Long.MAX_VALUE,Float.MAX_VALUE,Double.MAX_VALUE};
 
         for (int i = 0; i < t_arr.length;i++)
         {
-            System.out.printf("%15s %30s %30s", t_arr[i],min_val_arr[i], max_val_arr[i] + '\n');
+            System.out.printf("%15s %30s %30s", t_arr[i],min_val_arr[i], max_val_arr[i]);
+            System.out.println();
         }
         System.out.println("-----------------------------------------------------------------------------");
 
