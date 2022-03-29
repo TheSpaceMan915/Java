@@ -30,7 +30,7 @@ public class TestFunc {
     {
         double res = 1.0;
         int i = 0;
-        double negative_counter = 0.0;
+        int negative_counter = 0;
 
         while (i < obj.length)
         {
@@ -48,7 +48,7 @@ public class TestFunc {
             res = Math.pow(res,1.0/negative_counter) * -1;
         }
         else
-        {res = Math.pow(res,1.0/(negative_counter));}
+        {res = Math.pow(res,1.0/negative_counter);}
 
         return res;
     }
@@ -56,15 +56,15 @@ public class TestFunc {
 
     public static void FindDistance(int x, int y, int R_p, int r_p)
     {
-        double res = Math.sqrt(Math.pow(x,2) + Math.pow(y,2));
+        double res = Math.sqrt(x*x + y*y);
 
         System.out.println("The distance is " + res + "\tr = " + r_p + "\tR = " + R_p);
         if (res > R_p)
         {System.out.println("The object is not found\n");}
 
-        else if ((res > r_p) && (res <= R_p))
-        {System.out.println("The object is found\n");}
-        else
+        else if (res > r_p)                                 //the condition that R_p <= res
+        {System.out.println("The object is found\n");}      //is true for both else so we don't need
+        else                                                //to write it in the second else
         {System.out.println("Attention!\n");}
     }
 
@@ -152,22 +152,15 @@ public class TestFunc {
     {
         System.out.println("№9");
         int sub_counter = 0;
-        int index_start = str.indexOf(sub_str);
+        int index_start = -1;
         int temp_ind = 0;
 
-        if (index_start != -1)
-        {sub_counter++;}
-        else
-        {return 0;}  //if there are no substrings return 0
-
-        do
+        while ((temp_ind = str.indexOf(sub_str,index_start + 1)) != -1)     //check if there are
+                                                                                    // other substrings
         {
-            temp_ind = str.indexOf(sub_str,index_start + 1);
-            if (temp_ind == -1)
-            {break;}
-           sub_counter++;
-           index_start = temp_ind;
-        } while (temp_ind <= str.length() - sub_str.length());
+            sub_counter++;
+            index_start = temp_ind;
+        }
 
         return sub_counter;
     }
@@ -233,8 +226,8 @@ public class TestFunc {
 
         FindCharacters("cd4Ⅳ!EⅧ");
 
-        String main_str = "people think people are like other people";
-        String substring = "people";
+        String main_str = "think twice and think once more";
+        String substring = "think";
         System.out.println("There are " + LookForSubstring(main_str,substring) + " substrings in this string: " + main_str);
 
         PrintString("Mars");
