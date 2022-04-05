@@ -219,6 +219,33 @@ public class TestOperators
         return res;
     }
 
+    public static boolean CheckRostovNumber(String str)
+    {
+        Pattern patter_obj = Pattern.compile("[23][\\s-]?\\d{2}[\\s-]?\\d{2}[\\s-]?\\d{2}[\\s-]?");
+        Matcher matcher_obj = patter_obj.matcher(str);
+        boolean res = matcher_obj.find();
+
+        return res;
+    }
+
+    public static ArrayList<String> GetSubStr(String str)
+    {
+        Pattern patter_obj = Pattern.compile("([23][\\s-]?\\d{2}[\\s-]?\\d{2}[\\s-]?\\d{2}[\\s-]?)|(\\+7\\s?[(]\\d{3}[)]\\s?\\d{7})|(8\\s?[(]\\d{3}[)]\\s?\\d{7})|(\\+7[-\\s]?\\d{3}[-\\s]?\\d{3}[-\\s]?\\d{2}[-\\s]?\\d{2})|(8[-\\s]?\\d{3}[-\\s]?\\d{3}[-\\s]?\\d{2}[-\\s]?\\d{2})");
+        Matcher matcher_obj = patter_obj.matcher(str);
+        ArrayList<String> arr_str = new ArrayList<>();
+        int beginning = 0, end = 0;
+        String temp_str = "";
+
+        while (matcher_obj.find())
+        {
+            beginning = matcher_obj.start();
+            end = matcher_obj.end();
+            temp_str = str.substring(beginning,end);
+            arr_str.add(temp_str);
+        }
+        return arr_str;
+    }
+
     public static void main(String[] args)
     {
         FuncInterface func1 = (double x) -> Math.sin(x);            //the lambda expressions
@@ -285,9 +312,21 @@ public class TestOperators
         String feder_numb_hyphen1 = "+7434-378-16 61";                  //true
         String feder_numb_fake = "8434-378-16&61";                  //false
 
-
+        String rost_numb = "Мои номера 220-30-40 и 8904-378-16-61 не считая служебных";     //true
 
         boolean check_str = CheckFederalNumber(feder_numb_fake);
-        System.out.println(check_str);
+        System.out.println("Federal number is " + check_str);
+
+        boolean check_str2 = CheckRostovNumber(rost_numb);
+        System.out.println("Rostov number is " + check_str2);
+
+        //#10______________________________________________
+        ArrayList<String> arr_numb = GetSubStr(rost_numb);
+        System.out.println("The main string: " + rost_numb);
+        System.out.println("Substrings: ");
+        for (String str : arr_numb)
+        {
+            System.out.println(str);
+        }
     }
 }
