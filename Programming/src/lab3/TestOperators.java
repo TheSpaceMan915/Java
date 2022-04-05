@@ -1,6 +1,11 @@
 package lab3;
 
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 //показал первые 3 задания
 
@@ -117,6 +122,103 @@ public class TestOperators
         return arr;
     }
 
+    //#6______________________________________________
+   public class TabValue {
+        public double m_x;              //point x
+        public double m_value;          //f(x)
+
+        public TabValue(double x,double value) {m_x = x; m_value = value;}
+    }
+
+    public ArrayList<TabValue> TabulateFunc(final double x_start, final double x_end, final int n_inter)
+    {
+        ArrayList<TabValue> values_arr = new ArrayList<>();
+        double x = x_start;
+        double res = 0;
+        final double step = (x_end-x_start)/n_inter;
+                                    //check if it works with negatives
+        while (x <= x_end)
+        {
+            res = Math.exp(x) - x*x*x;                  //the function
+            values_arr.add(new TabValue(x,res));
+            x += step;
+        }
+        return values_arr;
+    }
+
+    public static double LeftRiemannSum(final double x_start, final double x_end,final ArrayList<TabValue> arr,final int n_intrer)
+    {
+        double res =  0.0;
+        final double step = (x_end-x_start)/n_intrer;
+
+        for (int i = 0; i < n_intrer; i++)         //get through all except the last one
+        {
+            res += arr.get(i).m_value;
+        }
+        res *= step;
+
+        return res;
+    }
+
+    public static double CheckIntegral()
+    {
+        double res = Math.exp(4) - 65;
+        return res;
+    }
+
+    public static void PrintArrayList(final ArrayList<TabValue> arr)
+    {
+        System.out.println("-------------------------------");
+        System.out.printf("%10.5s %15.7s","x","f(x)" + '\n');
+        System.out.println("-------------------------------");
+        for (TabValue temp : arr)
+        {
+            System.out.printf("%10.5f %15.7f",temp.m_x,temp.m_value);
+            System.out.println();
+        }
+        System.out.println();
+    }
+
+    //#7______________________________________________
+    public static StringBuilder ConvertToNumeralSystem(int value,int base)
+    {
+        StringBuilder str = new StringBuilder();
+        int number = value;
+        int remainder = 0;
+
+        while (number != 0)
+        {
+            remainder = number % base;     //вычисляю остаток числа
+            str.append(remainder);
+            number /= base;                //вычисляю целую часть числа
+        }
+
+        str.reverse();
+        return str;
+    }
+
+    //#8______________________________________________
+    public static int HornerMethod(int[] arr, int x)
+    {
+        int res = arr[0];
+
+        for (int i = 1; i < arr.length; i++)
+        {
+            res = res * x + arr[i];
+        }
+        return res;
+    }
+
+    //#9______________________________________________
+    public static boolean CheckFederalNumber(String str)
+    {
+        Pattern patter_obj = Pattern.compile("(\\+7\\s?[(]\\d{3}[)]\\s?\\d{7})|(8\\s?[(]\\d{3}[)]\\s?\\d{7})|(\\+7[-\\s]?\\d{3}[-\\s]?\\d{3}[-\\s]?\\d{2}[-\\s]?\\d{2})|(8[-\\s]?\\d{3}[-\\s]?\\d{3}[-\\s]?\\d{2}[-\\s]?\\d{2})");
+        Matcher matcher_obj = patter_obj.matcher(str);
+        boolean res = matcher_obj.matches();
+
+        return res;
+    }
+
     public static void main(String[] args)
     {
         FuncInterface func1 = (double x) -> Math.sin(x);            //the lambda expressions
@@ -144,5 +246,48 @@ public class TestOperators
             System.out.println("The max negative elem is " + max_elem);
         else
             System.out.println("There are no negative elements");
+
+        //#6______________________________________________
+        Scanner keybord = new Scanner(System.in);
+        double start =0 ,end = 4;
+//        final double start = keybord.nextDouble();
+//        final double end = keybord.nextDouble();
+
+        TestOperators test_obj = new TestOperators();
+        final int intervals_number = 100;
+        ArrayList<TabValue> arr_obj =test_obj.TabulateFunc(start,end,intervals_number);
+        PrintArrayList(arr_obj);
+        double aprox_res = LeftRiemannSum(start,end,arr_obj,intervals_number);
+        System.out.println("Aprox res is " + aprox_res);
+        double checking = CheckIntegral();
+        System.out.println("The exact value of the integral is " + checking);
+
+        //#7______________________________________________
+        int converting_value = 348;
+        int numeral_system = 3;
+        StringBuilder result_str = ConvertToNumeralSystem(converting_value,numeral_system);
+        System.out.println("The number: " + converting_value +" in numeral system: " + numeral_system+ " is " + result_str);
+        System.out.println("Checking: " + Integer.toString(converting_value,numeral_system));
+
+        //#8______________________________________________
+        int[] cof_arr = {2,-3,1,-2,3};
+        int x_number = 2;
+        int res_value = HornerMethod(cof_arr,x_number);
+        System.out.println(res_value);
+
+        //#9______________________________________________
+        String feder_numb1 = "+79043781661";                                 //true
+        String feder_numb2 = "89043781661";                                 //true
+        String feder_numb_brackets1 = "+7(904)3781661";                    //true
+        String feder_numb_brackets2 = "8(904)3781661";                    //true
+        String feder_numb_brackets3 = "+7 (324) 3781661";               //true
+        String feder_numb_spaces1 = "+7904 378 16 61";                  //true
+        String feder_numb_hyphen1 = "+7434-378-16 61";                  //true
+        String feder_numb_fake = "8434-378-16&61";                  //false
+
+
+
+        boolean check_str = CheckFederalNumber(feder_numb_fake);
+        System.out.println(check_str);
     }
 }
