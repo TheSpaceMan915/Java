@@ -146,12 +146,13 @@ public class TestOperators
         return values_arr;
     }
 
-    public static double LeftRiemannSum(final double x_start, final double x_end,final ArrayList<TabValue> arr,final int n_intrer)
+    public static double LeftRiemannSum(final double x_start, final double x_end,final ArrayList<TabValue> arr,final int dots_number)
     {
         double res =  0.0;
-        final double step = (x_end-x_start)/n_intrer;
+        int fractions_number = dots_number - 1;             //номер отрезков
+        final double step = (x_end-x_start)/fractions_number;
 
-        for (int i = 0; i < n_intrer; i++)         //get through all except the last one
+        for (int i = 0; i < dots_number; i++)         //get through all except the last one
         {
             res += arr.get(i).m_value;
         }
@@ -189,11 +190,11 @@ public class TestOperators
         while (number != 0)
         {
             remainder = number % base;     //вычисляю остаток числа
-            str.append(remainder);
+            str.insert(0,remainder);
             number /= base;                //вычисляю целую часть числа
         }
 
-        str.reverse();
+        //str.reverse();
         return str;
     }
 
@@ -209,10 +210,12 @@ public class TestOperators
         return res;
     }
 
-    //#9______________________________________________
+    //#9______________________________________________      using regex
     public static boolean CheckFederalNumber(String str)
     {
-        Pattern patter_obj = Pattern.compile("(\\+7\\s?[(]\\d{3}[)]\\s?\\d{7})|(8\\s?[(]\\d{3}[)]\\s?\\d{7})|(\\+7[-\\s]?\\d{3}[-\\s]?\\d{3}[-\\s]?\\d{2}[-\\s]?\\d{2})|(8[-\\s]?\\d{3}[-\\s]?\\d{3}[-\\s]?\\d{2}[-\\s]?\\d{2})");
+        Pattern patter_obj = Pattern.compile("((\\+7)|(8)\\s?[(]\\d{3}[)]\\s?\\d{7})|((\\+7)|(8)[-\\s]?\\d{3}[-\\s]?\\d{3}[-\\s]?\\d{2}[-\\s]?\\d{2})");
+
+       // Pattern patter_obj = Pattern.compile("(\\+7\\s?[(]\\d{3}[)]\\s?\\d{7})|(8\\s?[(]\\d{3}[)]\\s?\\d{7})|(\\+7[-\\s]?\\d{3}[-\\s]?\\d{3}[-\\s]?\\d{2}[-\\s]?\\d{2})|(8[-\\s]?\\d{3}[-\\s]?\\d{3}[-\\s]?\\d{2}[-\\s]?\\d{2})");
         Matcher matcher_obj = patter_obj.matcher(str);
         boolean res = matcher_obj.matches();
 
@@ -230,7 +233,7 @@ public class TestOperators
 
     public static ArrayList<String> GetSubStr(String str)
     {
-        Pattern patter_obj = Pattern.compile("([23][\\s-]?\\d{2}[\\s-]?\\d{2}[\\s-]?\\d{2}[\\s-]?)|(\\+7\\s?[(]\\d{3}[)]\\s?\\d{7})|(8\\s?[(]\\d{3}[)]\\s?\\d{7})|(\\+7[-\\s]?\\d{3}[-\\s]?\\d{3}[-\\s]?\\d{2}[-\\s]?\\d{2})|(8[-\\s]?\\d{3}[-\\s]?\\d{3}[-\\s]?\\d{2}[-\\s]?\\d{2})");
+        Pattern patter_obj = Pattern.compile("([23][\\s-]?\\d{2}[\\s-]?\\d{2}[\\s-]?\\d{2}[\\s-]?)|((\\+7)|(8)\\s?[(]\\d{3}[)]\\s?\\d{7})|((\\+7)|(8)[-\\s]?\\d{3}[-\\s]?\\d{3}[-\\s]?\\d{2}[-\\s]?\\d{2})");
         Matcher matcher_obj = patter_obj.matcher(str);
         ArrayList<String> arr_str = new ArrayList<>();
         int beginning = 0, end = 0;
@@ -275,11 +278,12 @@ public class TestOperators
             System.out.println("There are no negative elements");
 
         //#6______________________________________________
-        Scanner keybord = new Scanner(System.in);
-        double start =0 ,end = 4;
-//        final double start = keybord.nextDouble();
-//        final double end = keybord.nextDouble();
+        //using keyboard input
+       /* Scanner keybord = new Scanner(System.in);
+        final double start = keybord.nextDouble();
+        final double end = keybord.nextDouble();*/
 
+        double start =0 ,end = 4;
         TestOperators test_obj = new TestOperators();
         final int intervals_number = 100;
         ArrayList<TabValue> arr_obj =test_obj.TabulateFunc(start,end,intervals_number);
@@ -297,10 +301,20 @@ public class TestOperators
         System.out.println("Checking: " + Integer.toString(converting_value,numeral_system));
 
         //#8______________________________________________
+       //using keyboard input
+       /* System.out.println("How many elements would you like to have in the array?");
+        final int arr_size = keybord.nextInt();
+        int[] cof_arr2 = new int[arr_size];
+        System.out.println("Enter your elements");
+        for (var ref : cof_arr2)
+        {
+            ref = keybord.nextInt();
+        }*/
+
         int[] cof_arr = {2,-3,1,-2,3};
         int x_number = 2;
         int res_value = HornerMethod(cof_arr,x_number);
-        System.out.println(res_value);
+        System.out.println("The result of Horner's Method is " + res_value);
 
         //#9______________________________________________
         String feder_numb1 = "+79043781661";                                 //true

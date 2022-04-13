@@ -56,6 +56,7 @@ public class Circle {
         Scanner keyboard = new Scanner(System.in);
         int x1,x2,y1,y2,R1,R2;
 
+        //using keyboard input
         /*System.out.println("Enter x1:");
         x1 = keyboard.nextInt();
         System.out.println("Enter x2:");
