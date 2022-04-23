@@ -13,7 +13,7 @@ public class Tabulator {
         while (x <= x_end)
         {
             res = obj.CalcFunc(x);
-            res_map.put(x,res);         //add an entry in the map
+            res_map.put(x,res);         //add an entry to the map
             x += step;
         }
         return res_map;
