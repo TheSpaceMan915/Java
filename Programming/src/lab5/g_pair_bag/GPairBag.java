@@ -4,7 +4,7 @@ import lab5.pairbag.PairBag;
 import java.util.concurrent.ThreadLocalRandom;
 
 //didn't show this task
-//put items in an array
+
 public class GPairBag<T> extends PairBag {
 
     public GPairBag(int size) { super(size);}
