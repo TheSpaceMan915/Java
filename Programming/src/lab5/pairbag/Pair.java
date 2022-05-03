@@ -1,4 +1,4 @@
-package lab5.pair;
+package lab5.pairbag;
 
 public class Pair<T1,T2> {
     private T1 m_value1;
