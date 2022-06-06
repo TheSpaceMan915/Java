@@ -10,15 +10,24 @@ public class Competition {
     private int m_initial_number_teams;
     private int m_current_number_teams;
 
-    public Competition(int number_teams)
+    private static final int m_default_number_teams = 4;
+
+    public Competition(int number_teams)        //check in number_teams in constructor
     {
-        m_initial_number_teams = number_teams;
+        if ((number_teams & (number_teams - 1)) == 0)       //check if the number is a power of 2
+        {
+            m_initial_number_teams = number_teams;          //if it is, set that number of teams
+        }
+        else
+        {
+            number_teams =  m_default_number_teams;
+            m_initial_number_teams = number_teams;
+            System.out.println("The number of teams should be a power of two. The default number of teams " + number_teams + " was set");
+        }
         m_current_number_teams = m_initial_number_teams;
         m_bag = new Bag(number_teams);
         m_pair_bag = new GenericPairBag<>();
     }
-
-    public Competition() { this(4); }
 
     public void fillBag()
     {
@@ -70,12 +79,8 @@ public class Competition {
         Scanner in = new Scanner(System.in);
         System.out.println("Please enter the number of teams. It should be more than 1");
         int num_teams = in.nextInt();
-        Competition test_comp;
+        Competition test_comp = new Competition(num_teams);
 
-        if (!(num_teams % 2 == 0) || (num_teams % 3 == 0))
-        { test_comp = new Competition(); }
-        else
-        { test_comp = new Competition(num_teams); }
         test_comp.fillBag();
         String winner = test_comp.chooseTheWinner();
 

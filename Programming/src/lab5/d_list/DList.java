@@ -106,6 +106,6 @@ public class DList<T1,T2> {
         test_list.deleteList(x);
 
         ArrayList list1 = test_list.getList(0);
-        System.out.println("Check");
+
     }
 }
